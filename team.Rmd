@@ -5,3 +5,14 @@ date: "2/19/2020"
 output: html_document
 ---
 
+
+```{r}
+dat <- readxl::read_xls('Z:/ds202/ds202_lab3/GSS.xls')
+library(ggplot2)
+library(plyr)
+```
+
+```{r}
+dat1 <-rename(dat, c("Gss year for this respondent" ="Response_year","Respondent id number" = "id_number", "Marital status" = "marital_status", "Respondents sex" = "sex", "Political party affiliation" = "political_affiliation", "General happiness" = "happiness", "Ballot used for interview" = "Ballot" ))
+dat1
+```
