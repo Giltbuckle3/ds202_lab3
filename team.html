@@ -369,7 +369,28 @@ summary {
 </div>
 
 
-
+<pre class="r"><code>dat &lt;- readxl::read_xls(&#39;C:/Users/juank/OneDrive/Documents/Actual_DS202_Folder/GSS.xls&#39;)</code></pre>
+<pre><code>## Warning in read_fun(path = enc2native(normalizePath(path)), sheet_i = sheet, :
+## Expecting numeric in A64817 / R64817C1: got &#39;Source&#39;</code></pre>
+<pre><code>## Warning in read_fun(path = enc2native(normalizePath(path)), sheet_i = sheet, : Expecting numeric in B64817 / R64817C2: got &#39;Data collection: General Social Survey
+## Case Selection: all cases&#39;</code></pre>
+<pre class="r"><code>library(ggplot2)
+library(plyr)</code></pre>
+<pre class="r"><code>rename(dat, c(&quot;Gss year for this respondent&quot; =&quot;Response_year&quot;,&quot;Respondent id number&quot; = &quot;id_number&quot;, &quot;Marital status&quot; = &quot;marital_status&quot;, &quot;Respondents sex&quot; = &quot;sex&quot;, &quot;Political party affiliation&quot; = &quot;political_affiliation&quot;, &quot;General happiness&quot; = &quot;happiness&quot;, &quot;Ballot used for interview&quot; = &quot;Ballot&quot; ))</code></pre>
+<pre><code>## # A tibble: 64,816 x 7
+##    Response_year id_number marital_status sex   political_affil~ happiness
+##            &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;          &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt;    
+##  1          1972         1 Never married  Fema~ Ind,near dem     Not too ~
+##  2          1972         2 Married        Male  Not str democrat Not too ~
+##  3          1972         3 Married        Fema~ Independent      Pretty h~
+##  4          1972         4 Married        Fema~ Not str democrat Not too ~
+##  5          1972         5 Married        Fema~ Strong democrat  Pretty h~
+##  6          1972         6 Never married  Male  Ind,near dem     Pretty h~
+##  7          1972         7 Divorced       Male  Ind,near dem     Not too ~
+##  8          1972         8 Never married  Male  Ind,near dem     Not too ~
+##  9          1972         9 Never married  Fema~ Strong democrat  Pretty h~
+## 10          1972        10 Married        Fema~ Strong democrat  Pretty h~
+## # ... with 64,806 more rows, and 1 more variable: Ballot &lt;chr&gt;</code></pre>
 
 
 
