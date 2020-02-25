@@ -5,3 +5,12 @@ date: "2/19/2020"
 output: html_document
 ---
 
+```{r}
+dat <- readxl::read_xls('C:/Users/juank/OneDrive/Documents/Actual_DS202_Folder/GSS.xls')
+library(ggplot2)
+library(plyr)
+```
+
+```{r}
+rename(dat, c("Gss year for this respondent" ="Response_year","Respondent id number" = "id_number", "Marital status" = "marital_status", "Respondents sex" = "sex", "Political party affiliation" = "political_affiliation", "General happiness" = "happiness", "Ballot used for interview" = "Ballot" ))
+```
