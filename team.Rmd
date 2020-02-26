@@ -1,18 +1,18 @@
 ---
 title: "team.Rmd"
-author: "Juan Simons, Cole Weber"
+author: "Juan Simons; Github: Giltbuckle3, Cole Weber; Github:cpwebs"
 date: "2/19/2020"
 output: html_document
 ---
 
 
 ```{r}
-dat <- readxl::read_xls('Z:/ds202/ds202_lab3/GSS.xls')
+dat <- readxl::read_xls('C:/Users/juank/OneDrive/Documents/Actual_DS202_Folder/GSS.xls')
 library(ggplot2)
 library(plyr)
 ```
 
-Question 1: How does the happiness of a respondent relate to the marriage status?
+## Question 1: How does the happiness of a respondent relate to the marriage status?
 
 There is a clear distinction that married couples are more happy than unhappy. Never married and divorced couples are similar in terms of ratio to married couples, however, there aren't as many as them. There is, however, a worse off ratio for divorced couples and being unhappy which is something to take away from. This means that the most common category for all three different types of marital status responded with pretty happy.  
 
@@ -39,7 +39,7 @@ q1 <- ggplot(dat3Filter, aes(happiness, ..count..)) + geom_bar(aes(fill = marita
 q1
 ```
 
-Question 2: Does the sex of the respondent affect the relationship you found in Q1?
+## Question 2: Does the sex of the respondent affect the relationship you found in Q1?
 
 It seems that the sex didn't have a strong correlation in relationship to happiness and marriage status. The bar graphs look similar between the two especially in relation to married and never married being super similar. Divorced is very similar as well. With this being said, it looks like people have the same mindset of their marriage status and happiness regardless of sex.    
 
@@ -55,16 +55,13 @@ Marital Status:
 Sex:  
   -Male   
   -Female   
+  
 ```{r}
 q2 <- ggplot(dat3Filter, aes(happiness, ..count..)) + geom_bar(aes(fill = marital_status), position = "dodge") + labs(x = "Happiness", y = "Number of Respondents", title = "Happiness vs Marital Status with Gender",fill = "Marital Status") + facet_wrap(~sex, scales = "fixed")
 q2
-
-
-
-
 ```
 
-Question 3: How does the happiness of a respondent relate to the political party affiliation?
+## Question 3: How does the happiness of a respondent relate to the political party affiliation?
 
 It seems that more respondents are pretty happy more than the other two options. With this being said, not being either a strong democrat or strong republican are the two most popular choices amongst participants. This is in contrast to being strong democrats or republicans because they are generally lesser than the rest of the categories. Being not too happy was unpopular for all participants regardless of political affiliation which goes to show possibly many people are happy with their views and how things are going in their daily lives.   
 
@@ -78,7 +75,8 @@ Political Affiliation:
   -Not Strong Democrat    
   -Not Strong Republican     
   -Strong Democrat    
-  -Strong Republican      
+  -Strong Republican   
+  
 ```{r}
 df3 <-subset(dat3Filter, political_affiliation != "Don't know" & political_affiliation != "No answer" & political_affiliation != "Other party" & political_affiliation != "Ind,near rep" & political_affiliation != "Ind,near dem")
 
@@ -87,9 +85,7 @@ q3
 
 ```
 
-
-
-Question 4: Is there any correlation between all different types of marital status and party affiliation?   
+## Question 4: Is there any correlation between all different types of marital status and party affiliation?   
 There are essentially two types of groups here which is married and non-married participants. Non-married participants all follow the same trend of Not strong democrat followed by either independent or strong democrat, then finally not strong republican to strong republican. Married couples are the most common marital status group and still is comparable to the non-married participants by having not strong democrat as their party affiliation. Another thing worth noting is not strong republican jumping to the second most common party affiliation of married couples.    
 
 
@@ -106,6 +102,7 @@ Political Affiliation:
   -Not Strong Republican     
   -Strong Democrat    
   -Strong Republican     
+  
 ```{r}
 
 df4 <- subset(dat1, marital_status != "No answer" & political_affiliation != "No answer" & political_affiliation != "Don't know" & political_affiliation != "Ind,near dem" & political_affiliation != "Ind,near rep" & political_affiliation != "Other party")
@@ -115,7 +112,8 @@ q4
 
 
 ```
-Question 5: How does happiness compare between the year 1974, 1982, 1998, and 2018? Do wartimes tend to make people more unhappy? Does our busy, current society, make people more unhappy?
+
+## Question 5: How does happiness compare between the year 1974, 1982, 1998, and 2018? Do wartimes tend to make people more unhappy? Does our busy, current society, make people more unhappy?
 
 We hand selected years in the United States where there were wars going on (1974 and 2018) and not going on (1982 and 1998) to determine whether or not this had an impact on participant's responses. There wasn't a clear distinction between the two types that we were comparing. The one thing that we did notice was that the ratio of happiness were comparable in 1982, 1998, and 2018. Therefore, what could have been different about the war in 2018? Maybe because the war has been going on for a while and is lesser than it used to be. In 1974, it seems that in terms of ratio of each other, there was higher chances of not too happy and pretty happy than the other three years. This doesn't mean that 1974 was much different though, merely, there were less respondents which caused the ratios to be more significant, but the highest and lowest values stayed the same in 1974 compared to the rest of the years. Finally, it doesn't seem like our current society make people unhappy looking at past years and decades because they're just as consistent as the rest.
 
@@ -127,7 +125,8 @@ Response Year:
 Happiness:   
   -Not too happy  
   -Pretty happy    
-  -Very happy   
+  -Very happy  
+  
 ```{r}
 df5 <- subset(dat1, Response_year != '1972' & Response_year != '1973' & Response_year != '1975' &
                     Response_year != '1976' & Response_year != '1977' & Response_year != '1978' &
@@ -155,7 +154,7 @@ q5
 
 ```
 
-# Question 6: Since opinions on marriages have changed over the years, do the statistics support that notion? Have the numbers of marriages increased or decreased over the years?     
+## Question 6: Since opinions on marriages have changed over the years, do the statistics support that notion? Have the numbers of marriages increased or decreased over the years?     
 
 In recent years we have seen changes in how many people get married, especially with younger generations. Younger generations tend to want to marry less than older generations because of the way society has changed through the years. It seemms that the data. It seems that after the year *1990* onwards, there is a time period of about five years where the amount of marriges spikes, wether that be increasing or decreasing. From the point the data was gathered up to a little before 1990 though, the amount of marriges were continiously decreasing. We predict that the amount of marriges will continue to decrease in the coming years as the last spike where it increased was recent.     
 
@@ -181,7 +180,7 @@ ggplot(data = datline1) + geom_line(mapping = aes(x = Response_year, y = marital
 
 
 
-# Question 7: Is there any correlation between the political affiliation of a person and their sex? Generally where does each sex stand on the political spectrum the most?    
+## Question 7: Is there any correlation between the political affiliation of a person and their sex? Generally where does each sex stand on the political spectrum the most?    
 
 We wanted to find out if there was any similarities between how people of different genders vote. There seems to be about one big similarity between them and that is that both females and males say they are not strong democrats; the rest of the data is different. The females seem to have more responses in specific parties like strong democrat and independent, whereas the males seem to have spread out their votes evenly between all parties.    
 
