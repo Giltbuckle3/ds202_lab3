@@ -4,3 +4,85 @@ author: "Juan Simons"
 date: "2/19/2020"
 output: html_document
 ---
+
+```{r}
+dat <- readxl::read_xls('C:/Users/juank/OneDrive/Documents/Actual_DS202_Folder/GSS.xls')
+library(ggplot2)
+library(plyr)
+
+```
+
+```{r}
+dat1 <-rename(dat, c("Gss year for this respondent" ="Response_year","Respondent id number" = "id_number", "Marital status" = "marital_status", "Respondents sex" = "sex", "Political party affiliation" = "political_affiliation", "General happiness" = "happiness", "Ballot used for interview" = "Ballot" ))
+```
+Is there any correlation between all different types of marital status and party affiliation?
+
+How does happiness compare between the year 1972, 1981, 1998, and 2018? Do wartimes tend to make people more unhappy? Does our busy, current society, make people more unhappy?
+
+Is there any correlation between the political affiliation of a person and their sex? Generally where does each sex stand on the political spectrum the most?
+
+Since opinions on marriages have changed over the years, do the statistics support that notion? Have the numbers of marriages increased or decreased over the years? (line chart)
+
+```{r}
+library(dplyr)
+dat2 <- select(dat1,-c('Ballot'))
+```
+
+# Question 6
+Since opinions on marriages have changed over the years, do the statistics support that notion? Have the numbers of marriages increased or decreased over the years?
+
+In recent years we have seen changes in how many people get married, especially with younger generations. Younger generations tend to want to marry less than older generations because of the way society has changed through the years. It seemms that the data. It seems that after the year *1990* onwards, there is a time period of about five years where the amount of marriges spikes, wether that be increasing or decreasing. From the point the data was gathered up to a little before 1990 though, the amount of marriges were continiously decreasing. We predict that the amount of marriges will continue to decrease in the coming years as the last spike where it increased was recent.
+
+
+Below are the variables being used and their values.  
+Marital Status:	
+  -Married 	
+Response_year:
+  -we included all years
+
+```{r}
+datline <- subset(dat2, marital_status != "Separated" & marital_status !="Never married" & marital_status !="Divorced" & marital_status!="Widowed" & marital_status != "No answer" & happiness != "No answer" & happiness != "Not applicable" & happiness != "Don't know")
+```
+
+```{r}
+ datline1 <- datline %>% group_by(Response_year) %>% summarise(marital_status = n())
+datline1
+```
+```{r}
+ggplot(data = datline1) + geom_line(mapping = aes(x = Response_year, y = marital_status)) + labs(x = "Response Year", y = "Number of Respondents", title = "Marrige Over the Years")
+```
+
+# Question 7
+Is there any correlation between the political affiliation of a person and their sex? Generally where does each sex stand on the political spectrum the most?
+
+We wanted to find out if there was any similarities between how people of different genders vote. There seems to be about one big similarity between them and that is that both females and males say they are not strong democrats; the rest of the data is different. The females seem to have more responses in specific parties like strong democrat and independent, whereas the males seem to have spread out their votes evenly between all parties.
+
+Below are the variables being used and their values.  
+sex:	
+  -male 	
+  -female	
+Political Affiliation:  
+  -Indepedent 	
+  -Ind,near dem
+  -Ind,near rep
+  -Not Strong Democrat	
+  -Not Strong Republican 	
+  -Strong Democrat	
+  -Strong Republican	
+
+```{r}
+dat3 <- subset(dat2, marital_status != "No answer" & political_affiliation != "No answer" & political_affiliation != "Don't know" &  political_affiliation != "Other party")
+```
+
+```{r}
+politics<-ggplot(dat3, aes(x=political_affiliation, y='', fill=sex)) +
+         theme(axis.text.x =
+                   element_text(size  = 10,
+                                angle = 45,
+                                hjust = 1,
+                                vjust = 1)) +
+         geom_bar(position="stack", stat="identity") +
+         scale_fill_manual(values=c("blue", "red")) +
+         facet_grid(. ~ sex, space="free_x", scales="free_x") + labs(x = "Political Affiliation", y = "Number of Respondents", title = "Political Status Vs. Respondent Sex")
+politics
+```
